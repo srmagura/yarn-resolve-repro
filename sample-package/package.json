@@ -1,0 +1,8 @@
+{
+  "name": "sample-package",
+  "version": "0.0.0",
+  "dependencies": {
+    "@interface-technologies/iti-react": "file:../iti-react"
+  },
+  "packageManager": "yarn@3.0.2"
+}

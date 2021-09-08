@@ -1,0 +1,16 @@
+*.dll
+*.njsproj
+
+bin/
+obj/
+**/__tests__/
+.eslintrc.js
+.eslintignore
+.prettierrc.json
+jest.config.js
+lint-staged.config.js
+babel.config.js
+misc.d.ts
+tsconfig.json
+.pnp.js
+yarn-error.log

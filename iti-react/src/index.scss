@@ -1,0 +1,327 @@
+﻿// Import into your project like:
+// @import '~@interface-technologies/iti-react/src/index';
+
+@use 'sass:math';
+@import '~react-datepicker/dist/react-datepicker';
+
+// Define in your SCSS to override
+$text-color-light: #6c757d !default; // $gray-600
+$text-color-lighter: #909090 !default;
+$text-color-lightest: #adb5bd !default; // $gray-500
+
+.time-input {
+    .flex-container {
+        display: flex;
+        align-items: center;
+
+        & > .input {
+            width: 80px;
+        }
+
+        & > .input:not(:last-child) {
+            margin-right: 0.5rem;
+        }
+
+        .default-clear-button {
+            margin-left: 0.75rem;
+
+            &.disabled {
+                color: hsl(0, 0%, 56%);
+            }
+        }
+    }
+}
+
+// These styles make it so the size of the button does not change when the loading icon displays
+button.submit-button {
+    position: relative;
+
+    .hidden-label {
+        visibility: hidden;
+    }
+
+    .loading-icon-container {
+        width: 100%;
+        position: absolute;
+        top: $btn-padding-y;
+        left: 0;
+    }
+
+    &.btn-sm .loading-icon-container {
+        top: $btn-padding-y-sm;
+    }
+
+    &.btn-lg .loading-icon-container {
+        top: $btn-padding-y-lg;
+    }
+}
+
+a.disabled:not(.btn) {
+    // !important to prevent disabled links with a text color class (e.g. text-danger)
+    // retaining their normal color when disabled
+    color: $btn-link-disabled-color !important;
+    pointer-events: none;
+    text-decoration: none;
+}
+
+.in-progress-feedback {
+    color: $primary;
+}
+
+.invalid-feedback,
+.valid-feedback {
+    // Override Bootstrap defaults, which makes feedback hidden when it's not a sibling
+    // of a form-control
+    display: block;
+}
+
+.table-td-link {
+    @extend .table-hover;
+    height: 100%;
+
+    td {
+        cursor: pointer;
+    }
+
+    td:not(.no-link) {
+        padding: 0;
+        height: 100%;
+    }
+
+    .td-link {
+        display: block;
+        padding: $table-cell-padding-y $table-cell-padding-x;
+        height: 100%;
+        color: inherit;
+        text-decoration: none;
+    }
+
+    &.table-sm {
+        .td-link {
+            padding: $table-cell-padding-y-sm $table-cell-padding-x-sm;
+        }
+    }
+}
+
+.person-name-input {
+    display: flex;
+
+    &.person-name-input-fluid > * {
+        flex: 1;
+    }
+
+    &:not(.person-name-input-fluid) > * {
+        width: 150px;
+    }
+
+    & > :not(:last-child) {
+        margin-right: 0.5rem;
+    }
+}
+
+.react-datepicker {
+    // don't know why this is necessary
+    ul.react-datepicker__time-list {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    // by default, time-container and time-box are too narrow to fit an 'h:mm z' time
+    // on a single line
+    $original-time-container-width: 70px;
+    $extra-width: 25px;
+
+    .react-datepicker__time-container {
+        width: ($original-time-container-width + $extra-width) !important;
+    }
+
+    .react-datepicker__time-box {
+        width: auto !important;
+    }
+    // increasing the time-container width causes right arrow to be mispositioned
+    .react-datepicker__navigation--next--with-time:not(.react-datepicker__navigation--next--with-today-button) {
+        right: 80px + $extra-width;
+    }
+}
+
+.date-input-no-picker-wrapper {
+    // So that the DateInput width is the same whether showPicker=true or false
+    display: inline-block;
+}
+
+.address-input {
+    $address-row-margin-bottom: 0.5rem;
+
+    .address-row {
+        margin-bottom: $address-row-margin-bottom;
+    }
+
+    .address-row-3 {
+        display: flex;
+
+        & > :not(:last-child) {
+            margin-right: 0.5rem;
+        }
+
+        .city-input-container {
+            flex: 1;
+        }
+
+        input[name='postalCode'] {
+            // Enough to fit xxxxx-xxxx zip code
+            width: 115px;
+        }
+
+        @include media-breakpoint-down(sm) {
+            flex-wrap: wrap;
+
+            .city-input-container {
+                flex: 0 0 100%;
+                margin-bottom: $address-row-margin-bottom;
+            }
+        }
+    }
+}
+
+.address-display {
+    p {
+        margin-bottom: 0;
+    }
+}
+
+
+
+.saved-message {
+    color: $success;
+    font-weight: 600;
+    transition-property: opacity;
+    transition-duration: 0.4s;
+
+    $margin: 1.5rem;
+
+    &.saved-message-mr {
+        margin-right: $margin;
+    }
+
+    &.saved-message-ml {
+        margin-left: $margin;
+    }
+}
+
+.click-to-copy {
+    display: inline-block;
+}
+
+.pagination-container .pagination {
+    margin-bottom: 0;
+}
+
+.configurable-pager {
+    display: flex;
+    align-items: center;
+
+    label {
+        line-height: 1;
+        margin-bottom: 0;
+        margin-right: 1rem;
+        font-size: $font-size-sm;
+        color: $gray-600;
+    }
+
+    .validated-input {
+        margin-right: 2.5rem;
+        width: 70px;
+    }
+
+    ul {
+        margin-bottom: 0;
+    }
+}
+
+.money-input-container {
+    position: relative;
+
+    .dollar-sign {
+        color: $text-color-lighter;
+        position: absolute;
+        padding: $input-padding-y;
+        border-top: 1.5px solid transparent;
+        width: 0;
+        left: 0.12rem;
+    }
+
+    input {
+        padding-left: 1.5rem;
+    }
+}
+
+.unit-input-container {
+    display: flex;
+    align-items: baseline;
+
+    & > .unit {
+        margin-left: 0.75rem;
+        font-size: $font-size-sm;
+    }
+
+    &.unit-input-container-sm > .unit {
+        margin-left: 0.5rem;
+    }
+
+    &.unit-input-container-lg > .unit {
+        margin-left: 1.5rem;
+        font-size: $font-size-base;
+    }
+}
+
+.form-group {
+    margin-bottom: 1rem;
+
+    label {
+        display: block;
+    }
+
+    .optional {
+    color: $text-color-lightest;
+    font-size: $font-size-sm;
+    display: inline-block;
+    margin-left: 0.25rem;
+}
+}
+
+// When form fields are laid out horizontally, apply this to checkboxes, radio groups, .etc
+// to make them line up with text inputs and select boxes.
+.form-group-horizontal-with-checkbox > label {
+    padding-bottom: $input-padding-y + math.div(1rem,16);
+}
+
+.form-group-horizontal-with-checkbox-sm  > label {
+    padding-bottom: $input-padding-y-sm + math.div(1rem,16);
+}
+
+.form-group-stacked-with-checkbox {
+    padding-top: 0.5rem;
+}
+
+.tab-layout {
+    margin-bottom: 1.5rem;
+}
+
+.tab-content {
+    border: 1px solid $nav-tabs-border-color;
+    border-top-width: 0;
+    box-shadow: $box-shadow-sm;
+    background-color: white;
+    padding: 1rem;
+
+    @include media-breakpoint-up(lg) {
+        padding: 1.5rem;
+    }
+}
+
+.tab-content-loading {
+    margin: 70px 0;
+    text-align: center;
+    font-size: $h1-font-size;
+    animation: 2s fadeIn;
+}
